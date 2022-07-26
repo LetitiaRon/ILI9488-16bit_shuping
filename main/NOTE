@@ -1,0 +1,327 @@
+
+// # message.payload()是接收的jason格式数据
+// * 格式如下
+// * {
+// *  "method":"thing.service.property.set",
+// *  "id":"2105943552",
+// *  "params":
+// *  {
+// *      "Fan":1,
+// *      "Watering":1,
+// *      "LightLux":1,
+// *      "Atmosphere":55,
+// *      "Humidity":1,
+// *      "co2":1,
+// *      "temperature":1
+// *  },
+// *  "version":"1.0.0"
+// * }
+// * 
+// * 云流转后的json
+// * topic:/sys/a1D0VCyeFNT/upper_computer/thing/service/property/set,
+// *   paload:
+// *   {
+// *       "deviceType":"CustomCategory",
+// *       "iotId":"MCkuj4sQbumHcfK8Vkw5000000",
+// *       "requestId":"123",
+// *       "checkFailedData":{},
+// *       "productKey":"a1D0VCyeFNT",
+// *       "gmtCreate":1652542815625,
+// *       "deviceName":"MCU1",
+// *       "items":
+// *       {
+// *           "Fan":
+// *           {
+// *               "time":1652542815623,
+// *               "value":0
+// *           },
+// *           "Watering":
+// *           {
+// *               "time":1652542815623,
+// *               "value":1
+// *           },
+// *           "LightLux":
+// *           {
+// *               "time":1652542815623,
+// *               "value":253
+// *           },
+// *           "Atmosphere":
+// *           {
+// *               "time":1652542815623,
+// *               "value":56
+// *           },
+// *           "Humidity":
+// *           {
+// *               "time":1652542815623,
+// *               "value":87.1
+// *           },
+// *           "co2":
+// *           {
+// *               "time":1652542815623,
+// *               "value":88
+// *           },
+// *           "temperature":
+// *           {
+// *               "time":1652542815623,
+// *               "value":22.2
+// *           }
+// *       }
+// *   }
+// * 
+
+
+
+
+    // esp_mqtt_client_config_t mqtt_cfg = {
+    //     .host = "a1D0VCyeFNT.iot-as-mqtt.cn-shanghai.aliyuncs.com", //CONFIG_BROKER_URL,//根据实际填写
+    //     .port = 1883,
+    //     .username = "phone&a1D0VCyeFNT",                                                              //根据实际填写
+    //     .password = "24968bfa12702c52d46a8e7a712b2f3e46b31a3ca56c3801cb224381d897615c",               //根据实际填写
+    //     .client_id = "a1D0VCyeFNT.phone|securemode=2,signmethod=hmacsha256,timestamp=1653151265628|", //根据实际填写
+
+    // };
+
+
+
+
+
+
+    // /* MQTT (over TCP) Example
+//    This example code is in the Public Domain (or CC0 licensed, at your option.)
+//    Unless required by applicable law or agreed to in writing, this
+//    software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+//    CONDITIONS OF ANY KIND, either express or implied.
+// */
+// static esp_err_t mqtt_event_handler_cb(esp_mqtt_event_handle_t event)
+// {
+//     esp_mqtt_client_handle_t client = event->client;
+//     int msg_id;
+//     // your_context_t *context = event->context;
+//     switch (event->event_id)
+//     {
+//     case MQTT_EVENT_CONNECTED:
+//         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
+//         /* 发布一条主题为“fc_boardstatus” 的消息 */
+//         msg_id = esp_mqtt_client_publish(client, "/sys/a1D0VCyeFNT/phone/thing/service/property/post", "data_3", 0, 1, 0);
+//         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+//         /* 订阅主题为“fc_ctrlcmd” 的消息 */
+//         msg_id = esp_mqtt_client_subscribe(client, "/sys/a1D0VCyeFNT/phone/thing/service/property/post", 0);
+//         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+
+//         break;
+//     case MQTT_EVENT_DISCONNECTED:
+//         ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
+//         break;
+
+//     case MQTT_EVENT_SUBSCRIBED:
+//         ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
+//         msg_id = esp_mqtt_client_publish(client, "/topic/qos0", "data", 0, 0, 0);
+//         ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+//         break;
+//     case MQTT_EVENT_UNSUBSCRIBED:
+//         ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
+//         break;
+//     case MQTT_EVENT_PUBLISHED:
+//         ESP_LOGI(TAG, "MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
+//         break;
+//     case MQTT_EVENT_DATA:
+//         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
+//         printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
+//         printf("DATA=%.*s\r\n", event->data_len, event->data);
+//         break;
+//     case MQTT_EVENT_ERROR:
+//         ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
+//         break;
+//     default:
+//         ESP_LOGI(TAG, "Other event id:%d", event->event_id);
+//         break;
+//     }
+//     return ESP_OK;
+// }
+
+// static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
+// {
+//     ESP_LOGD(TAG, "Event dispatched from event loop base=%s, event_id=%d", base, event_id);
+//     mqtt_event_handler_cb(event_data);
+// }
+
+// void mqtt_app_start(void)
+// {
+//     esp_mqtt_client_config_t mqtt_cfg = {
+//         .host = "a1D0VCyeFNT.iot-as-mqtt.cn-shanghai.aliyuncs.com", //CONFIG_BROKER_URL,//根据实际填写
+//         .port = 1883,
+//         .username = "phone&a1D0VCyeFNT",                                                              //根据实际填写
+//         .password = "24968bfa12702c52d46a8e7a712b2f3e46b31a3ca56c3801cb224381d897615c",               //根据实际填写
+//         .client_id = "a1D0VCyeFNT.phone|securemode=2,signmethod=hmacsha256,timestamp=1653151265628|", //根据实际填写
+
+//     };
+// #if CONFIG_BROKER_URL_FROM_STDIN
+//     char line[128];
+
+//     if (strcmp(mqtt_cfg.uri, "FROM_STDIN") == 0)
+//     {
+//         int count = 0;
+//         printf("Please enter url of mqtt broker\n");
+//         while (count < 128)
+//         {
+//             int c = fgetc(stdin);
+//             if (c == '\n')
+//             {
+//                 line[count] = '\0';
+//                 break;
+//             }
+//             else if (c > 0 && c < 127)
+//             {
+//                 line[count] = c;
+//                 ++count;
+//             }
+//             vTaskDelay(10 / portTICK_PERIOD_MS);
+//         }
+//         mqtt_cfg.uri = line;
+//         printf("Broker url: %s\n", line);
+//     }
+//     else
+//     {
+//         ESP_LOGE(TAG, "Configuration mismatch: wrong broker url");
+//         abort();
+//     }
+// #endif /* CONFIG_BROKER_URL_FROM_STDIN */
+
+//     client = esp_mqtt_client_init(&mqtt_cfg);
+//     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, client);
+//     esp_mqtt_client_start(client);
+// }
+
+
+
+// /*解析数据*/
+// // json parse
+// root = cJSON_Parse(event->data);
+// if (root == NULL)
+// {
+//     // free(data);
+//     printf("cJSON_Parse fail![%s]\n", cJSON_GetErrorPtr());
+//     return -1;
+// }
+// cJSON *items = cJSON_GetObjectItem(root, "items"); //全部数据
+// if (items != NULL)
+// {
+//     char *name = cJSON_Print(items); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("items:%s\n", name);
+//     free(name);
+// }
+// /*解析各个部分数据*/
+// /*解析风扇状态*/
+// cJSON *Fan_item = cJSON_GetObjectItem(items, "Fan");
+// if (Fan_item != NULL)
+// {
+//     char *type = cJSON_Print(Fan_item); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("Fan:%s\n", type);
+//     free(type);
+// }
+// cJSON *Fan_value = cJSON_GetObjectItem(Fan_item, "value");
+// if (Fan_value != NULL)
+// {
+//     char *fanvalue = cJSON_Print(Fan_value); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("value:%s\n", fanvalue);
+//     Fan = atoi(fanvalue); //字符串转换整形
+//     free(fanvalue);
+// }
+// /*解析浇水状态*/
+// cJSON *watering_item = cJSON_GetObjectItem(items, "Watering");
+// if (watering_item != NULL)
+// {
+//     char *type = cJSON_Print(watering_item); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("watering:%s\n", type);
+//     free(type);
+// }
+// cJSON *watering_value = cJSON_GetObjectItem(watering_item, "value");
+// if (watering_value != NULL)
+// {
+//     char *wateringvalue = cJSON_Print(watering_value); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("value:%s\n", wateringvalue);
+//     Watering = atoi(wateringvalue); //字符串转换整形
+//     free(wateringvalue);
+// }
+// /*解析温度*/
+// cJSON *temperature_item = cJSON_GetObjectItem(items, "temperature");
+// if (temperature_item != NULL)
+// {
+//     char *type = cJSON_Print(temperature_item); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("watering:%s\n", type);
+//     free(type);
+// }
+// cJSON *temperature_value = cJSON_GetObjectItem(temperature_item, "value");
+// if (temperature_value != NULL)
+// {
+//     char *temperaturevalue = cJSON_Print(temperature_value); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("value:%s\n", wateringvalue);
+//     temperature = atof(temperaturevalue); //字符串转换成double
+//     free(temperaturevalue);
+// }
+// /*解析湿度*/
+// cJSON *Humidity_item = cJSON_GetObjectItem(items, "Humidity");
+// if (Humidity_item != NULL)
+// {
+//     char *type = cJSON_Print(Humidity_item); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("watering:%s\n", type);
+//     free(type);
+// }
+// cJSON *Humidity_value = cJSON_GetObjectItem(Humidity_item, "value");
+// if (Humidity_value != NULL)
+// {
+//     char *Humidityvalue = cJSON_Print(Humidity_value); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("value:%s\n", wateringvalue);
+//     Humidity = atof(Humidityvalue); //字符串转换成double
+//     free(Humidityvalue);
+// }
+// /*解析光照强度*/
+// cJSON *LightLux_item = cJSON_GetObjectItem(items, "LightLux");
+// if (LightLux_item != NULL)
+// {
+//     char *type = cJSON_Print(LightLux_item); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("watering:%s\n", type);
+//     free(type);
+// }
+// cJSON *LightLux_value = cJSON_GetObjectItem(LightLux_item, "value");
+// if (LightLux_value != NULL)
+// {
+//     char *LightLuxvalue = cJSON_Print(LightLux_value); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("value:%s\n", wateringvalue);
+//     LightLux = atof(LightLuxvalue); //字符串转换成double
+//     free(LightLuxvalue);
+// }
+// /*解析CO2含量*/
+// cJSON *co2_item = cJSON_GetObjectItem(items, "co2");
+// if (co2_item != NULL)
+// {
+//     char *type = cJSON_Print(co2_item); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("watering:%s\n", type);
+//     free(type);
+// }
+// cJSON *co2_value = cJSON_GetObjectItem(co2_item, "value");
+// if (co2_value != NULL)
+// {
+//     char *co2value = cJSON_Print(co2_value); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("value:%s\n", wateringvalue);
+//     co2 = atoi(co2value); //字符串转换整形
+//     free(co2value);
+// }
+// /*解析大气压强*/
+// cJSON *Atmosphere_item = cJSON_GetObjectItem(items, "Atmosphere");
+// if (Atmosphere_item != NULL)
+// {
+//     char *type = cJSON_Print(Atmosphere_item); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("watering:%s\n", type);
+//     free(type);
+// }
+// cJSON *Atmosphere_value = cJSON_GetObjectItem(Atmosphere_item, "value");
+// if (Atmosphere_value != NULL)
+// {
+//     char *Atmospherevalue = cJSON_Print(Atmosphere_value); //将JSON结构体打印到字符串中 需要自己释放
+//     //printf("value:%s\n", wateringvalue);
+//     Atmosphere = atof(Atmospherevalue); //字符串转换成double
+//     free(Atmospherevalue);
+// }
+// /*删除root*/
+// cJSON_Delete(root);

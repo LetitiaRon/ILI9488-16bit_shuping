@@ -1,0 +1,37 @@
+menu "lvgl port configuration"
+
+    choice LVGL_LCD_PANEL_SELECT
+        prompt "LCD panel"
+        default LVGL_LCD_PANEL_W350CE024A_40Z
+
+        help
+            This selects the initialization register table for specific LCD panels.
+            You can select one from those tested models, or you may add your own panel
+            initialization register table inside components/bsp/bsp_lcd_panels.c.
+
+        config LVGL_LCD_PANEL_W350CE024A_40Z
+            bool "W350CE024A-40Z (ST7796S, IPS)"
+
+        config LVGL_LCD_PANEL_CL35BC1017_40A
+            bool "CL35BC1017-40A (ST7796S, TN)"
+
+        config LVGL_LCD_PANEL_CL35BC106_40A
+            bool "CL35BC106-40A (ILI9488, TN)"
+            
+        config LVGL_LCD_PANEL_P0395H01_SPEC_40A
+            bool "P0395H01-40A (ILI9488, TN)"
+    endchoice
+
+    config LVGL_LCD_PCLK_FREQ
+        int "LCD pixel clock frequency in MHz"
+        default 12
+        range 2 15
+
+        help
+            This selects the pixel frequency of the driver. Higher frequency improves fps
+            but may cause glitches in graphics or even prevent the screen from functioning.
+            How high the frequency could reach depends on the hardware (route on the pcb,
+            for example) and lcd driver chip specs. Choose as high frequency as possible
+            while the graphics is fine.
+
+endmenu

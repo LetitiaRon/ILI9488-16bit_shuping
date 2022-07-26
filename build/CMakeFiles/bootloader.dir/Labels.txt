@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/CMakeFiles/bootloader
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/CMakeFiles/bootloader.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/CMakeFiles/bootloader-complete.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+F:/Desk-day/S3/ILE9488-16bit_shuping/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

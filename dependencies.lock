@@ -1,0 +1,15 @@
+dependencies:
+  espressif/pid_ctrl:
+    component_hash: 17bd99c0160f1c327803aceb088ef0e4ab3410ceb0708cb87fcc950bb62e5698
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 0.1.1
+  idf:
+    component_hash: null
+    source:
+      type: idf
+    version: 4.4.0
+manifest_hash: 7fbe492f2f6b9cd49a44d489b4bd2598eaf7321b483fab19c6e2926212defe38
+target: esp32s3
+version: 1.0.0
