@@ -2864,3 +2864,13 @@
 127	533	6762347407718776	bootloader/bootloader.bin	19c371c86ac0bad6
 127	533	6762347407718776	bootloader/bootloader.map	19c371c86ac0bad6
 131	544	0	esp-idf/esptool_py/CMakeFiles/app_check_size	ac3038eb3a10798a
+140	580	0	esp-idf/esptool_py/CMakeFiles/app_check_size	ac3038eb3a10798a
+136	583	6762347407718776	bootloader-prefix/src/bootloader-stamp/bootloader-build	19c371c86ac0bad6
+136	583	6762347407718776	bootloader/bootloader.elf	19c371c86ac0bad6
+136	583	6762347407718776	bootloader/bootloader.bin	19c371c86ac0bad6
+136	583	6762347407718776	bootloader/bootloader.map	19c371c86ac0bad6
+135	276	0	esp-idf/esptool_py/CMakeFiles/app_check_size	ac3038eb3a10798a
+130	343	6762347407718776	bootloader-prefix/src/bootloader-stamp/bootloader-build	19c371c86ac0bad6
+130	343	6762347407718776	bootloader/bootloader.elf	19c371c86ac0bad6
+130	343	6762347407718776	bootloader/bootloader.bin	19c371c86ac0bad6
+130	343	6762347407718776	bootloader/bootloader.map	19c371c86ac0bad6
