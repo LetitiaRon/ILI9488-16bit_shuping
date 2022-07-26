@@ -16,7 +16,7 @@ ILI9488
 
 ## About LVGL
 
-* LVGL : v8.0.0-194-gd79ca388
+* LVGL : v8.0.0
 
 # NOTE:
 
