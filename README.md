@@ -23,4 +23,4 @@ ILI9488
 * wifi连接是用外部的example
 * 在外部的cmake里面加 set(EXTRA_COMPONENT_DIRS $ENV{IDF_PATH}/examples/common_components/protocol_examples_common)
 
-![图片加载失败]()
+![图片加载失败](S3Image.jpg)
